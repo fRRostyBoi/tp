@@ -8,12 +8,16 @@ import static java.util.Objects.requireNonNull;
  */
 public class Remark {
 
-    public final String value;
-
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
+    public final String value;
+
+    /**
+     * Initialises a Remark instance.
+     * @param remark The remark to be stored in the Remark instance.
+     */
     public Remark(String remark) {
         requireNonNull(remark);
         value = remark;

@@ -1,6 +1,6 @@
 ---
   layout: default.md
-  title: "About Us"
+    title: "About Us"
 ---
 
 # About Us
@@ -11,25 +11,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Lee Qi Zheng
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/iamqz.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/iamqz)]
 
-* Role: Project Advisor
-
-### Jane Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Developer, Project Advisor
+* Responsibilities: Overall Project Coordination
 
 ### Nguyen Huy Dat (Andrew)
 
@@ -37,25 +26,20 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](http://github.com/andrew250402)] [[portfolio](team/johndoe.md)]
 
+### Sherman Liam
+
+<img src="images/siimen111.png" width="200px">
+
+[[github](http://github.com/Siimen111)]
+
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Ronald Pang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/frrostyboi.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/frrostyboi)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: UI

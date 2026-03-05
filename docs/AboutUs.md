@@ -20,15 +20,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer, Project Advisor
 * Responsibilities: Overall Project Coordination
 
-### Jane Doe
+### Nguyen Huy Dat (Andrew)
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/andrew250402.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
+[[github](http://github.com/andrew250402)] [[portfolio](team/johndoe.md)]
 
 ### Sherman Liam
 
@@ -47,13 +43,3 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: UI

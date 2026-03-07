@@ -367,10 +367,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **GUI**: A visual interface that allows users to interact with the application using graphical elements such as windows, buttons, icons, and menus instead of typing commands.
-* **DBMS**: Software used to create, store, and manage structured data in databases (e.g., MySQL, PostgreSQL). This project does not use a DBMS and instead stores data in local files.
 * **JAR file**: A packaged file format used to distribute Java applications. It bundles compiled Java classes and resources into a single executable file.
 * **Object-Oriented Programming**: A programming paradigm based on organizing code into objects that contain data and behavior.
 * **Resident**: A person whose record is managed by the application.

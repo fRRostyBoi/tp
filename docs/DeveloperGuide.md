@@ -373,6 +373,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **DBMS**: Software used to create, store, and manage structured data in databases (e.g., MySQL, PostgreSQL). This project does not use a DBMS and instead stores data in local files.
 * **JAR file**: A packaged file format used to distribute Java applications. It bundles compiled Java classes and resources into a single executable file.
 * **Object-Oriented Programming**: A programming paradigm based on organizing code into objects that contain data and behavior.
+* **Resident**: A person whose record is managed by the application.
+* **Resident Assistants (RAs)**: The primary target user of the application, responsible for resident welfare and administrative follow-up.
+* **Command**: A text instruction entered by the user to perform an action in the app.
+* **Contact Information**: Personal communication details of a resident, such as phone number and email address.
+* **Room Location**: The dormitory room or unit assigned to a resident.
+* **Emergency Contact**: A contact person who should be reached in urgent situations; may refer to the next-of-kin or another designated person.
 
 --------------------------------------------------------------------------------------------------------------------
 

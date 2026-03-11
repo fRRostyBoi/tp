@@ -65,8 +65,15 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_validCommand_empty() throws Exception {
+        String listCommand = ListCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_EMPTY, model);
+    }
+
+    @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
+        model.addPerson(new ResidentBuilder(AMY).withTags().build());
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 

@@ -17,7 +17,7 @@ Available commands:
 
 add: Adds a resident to the address book.
 Format: add n/NAME p/PHONE_NUMBER u/UNIT_NO [t/TAG]...
-Example: add n/John Doe p/98765432 e/johnd@example.com u/02-25 t/friends
+Example: add n/John Doe p/98765432 u/02-25 t/friends
 
 list: Shows all residents.
 Format: list

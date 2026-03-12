@@ -107,6 +107,11 @@ Format: exit""";
      * Focuses on the help window.
      */
     public void focus() {
+        if (getRoot().isIconified()) {
+            getRoot().setIconified(false);
+        }
+        getRoot().show();
+        getRoot().toFront();
         getRoot().requestFocus();
     }
 }

@@ -50,7 +50,7 @@ public class ResidentCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(resident.getName().fullName);
         phone.setText(resident.getPhone().value);
-        address.setText(resident.getAddress().value);
+        address.setText(resident.getUnitNumber().value);
         email.setText(resident.getEmail().value);
         resident.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

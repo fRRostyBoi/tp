@@ -78,7 +78,7 @@ Format: `help`
 
 ### Adding a resident: `add`
 
-Adds a resident to the address book.
+Adds a resident to the unitNumber book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
@@ -93,13 +93,13 @@ Examples:
 
 ### Listing all residents : `list`
 
-Shows a list of all residents in the address book.
+Shows a list of all residents in the unitNumber book.
 
 Format: `list`
 
 ### Editing a resident : `edit`
 
-Edits an existing resident in the address book.
+Edits an existing resident in the unitNumber book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
@@ -111,7 +111,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st resident to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email unitNumber of the 1st resident to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd resident to be `Betsy Crower` and clears all existing tags.
 
 ### Locating residents by name: `find`
@@ -134,7 +134,7 @@ Examples:
 
 ### Deleting a resident : `delete`
 
-Deletes the specified resident from the address book.
+Deletes the specified resident from the unitNumber book.
 
 Format: `delete INDEX`
 
@@ -143,12 +143,12 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd resident in the address book.
+* `list` followed by `delete 2` deletes the 2nd resident in the unitNumber book.
 * `find Betsy` followed by `delete 1` deletes the 1st resident in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the unitNumber book.
 
 Format: `clear`
 

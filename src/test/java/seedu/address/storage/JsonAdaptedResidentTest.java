@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.resident.Address;
+import seedu.address.model.resident.UnitNumber;
 import seedu.address.model.resident.Email;
 import seedu.address.model.resident.Name;
 import seedu.address.model.resident.Phone;
@@ -27,7 +27,7 @@ public class JsonAdaptedResidentTest {
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
+    private static final String VALID_ADDRESS = BENSON.getUnitNumber().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
@@ -87,14 +87,14 @@ public class JsonAdaptedResidentTest {
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         JsonAdaptedResident person =
                 new JsonAdaptedResident(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Address.MESSAGE_CONSTRAINTS;
+        String expectedMessage = UnitNumber.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
         JsonAdaptedResident person = new JsonAdaptedResident(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, UnitNumber.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

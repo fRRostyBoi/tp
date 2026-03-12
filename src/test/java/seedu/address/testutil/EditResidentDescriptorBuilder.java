@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditResidentDescriptor;
-import seedu.address.model.resident.Address;
+import seedu.address.model.resident.UnitNumber;
 import seedu.address.model.resident.Email;
 import seedu.address.model.resident.Name;
 import seedu.address.model.resident.Phone;
@@ -36,7 +36,7 @@ public class EditResidentDescriptorBuilder {
         descriptor.setName(resident.getName());
         descriptor.setPhone(resident.getPhone());
         descriptor.setEmail(resident.getEmail());
-        descriptor.setAddress(resident.getAddress());
+        descriptor.setAddress(resident.getUnitNumber());
         descriptor.setTags(resident.getTags());
     }
 
@@ -65,10 +65,10 @@ public class EditResidentDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code UnitNumber} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditResidentDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+        descriptor.setAddress(new UnitNumber(address));
         return this;
     }
 

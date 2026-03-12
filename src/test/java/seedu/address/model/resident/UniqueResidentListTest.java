@@ -74,7 +74,7 @@ public class UniqueResidentListTest {
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setPerson_editedPersonIsSameResident_success() {
         uniqueResidentList.add(ALICE);
         uniqueResidentList.setPerson(ALICE, ALICE);
         UniqueResidentList expectedUniqueResidentList = new UniqueResidentList();

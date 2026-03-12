@@ -1,11 +1,11 @@
-package seedu.address.ui;
+package seedu.unitNumber.ui;
 
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import seedu.address.commons.core.LogsCenter;
+import seedu.unitNumber.commons.core.LogsCenter;
 
 /**
  * Controller for a help page
@@ -15,7 +15,7 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String COMMAND_LIST_MESSAGE = """
 Available commands:
 
-add: Adds a resident to the address book.
+add: Adds a resident to the unitNumber book.
 Format: add n/NAME p/PHONE_NUMBER u/UNIT_NO [t/TAG]...
 Example: add n/John Doe p/98765432 u/02-25 t/friends
 
@@ -34,7 +34,7 @@ delete: Deletes a resident by index.
 Format: delete INDEX
 Example: delete 2
 
-clear: Deletes all residents from the address book.
+clear: Deletes all residents from the unitNumber book.
 Format: clear
 
 help: Shows this command list.

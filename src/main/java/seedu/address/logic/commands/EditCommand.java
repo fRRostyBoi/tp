@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_UNITNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -21,7 +21,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.resident.Address;
+import seedu.address.model.resident.UnitNumber;
 import seedu.address.model.resident.Email;
 import seedu.address.model.resident.Name;
 import seedu.address.model.resident.Phone;
@@ -29,7 +29,7 @@ import seedu.address.model.resident.Resident;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the unitNumber book.
  */
 public class EditCommand extends Command {
 
@@ -42,7 +42,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_UNITNUMBER + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -50,7 +50,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the unitNumber book.";
 
     private final Index index;
     private final EditResidentDescriptor editResidentDescriptor;
@@ -70,20 +70,20 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Resident> lastShownList = model.getFilteredPersonList();
+        List<Resident> lastShownList = model.getFilteredResidentList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_RESIDENT_DISPLAYED_INDEX);
         }
 
         Resident residentToEdit = lastShownList.get(index.getZeroBased());
         Resident editedResident = createEditedPerson(residentToEdit, editResidentDescriptor);
 
-        if (!residentToEdit.isSamePerson(editedResident) && model.hasPerson(editedResident)) {
+        if (!residentToEdit.isSameResident(editedResident) && model.hasResident(editedResident)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(residentToEdit, editedResident);
+        model.setResident(residentToEdit, editedResident);
         model.updateFilteredResidentsList(PREDICATE_SHOW_ALL_RESIDENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedResident)));
     }
@@ -98,10 +98,10 @@ public class EditCommand extends Command {
         Name updatedName = editResidentDescriptor.getName().orElse(residentToEdit.getName());
         Phone updatedPhone = editResidentDescriptor.getPhone().orElse(residentToEdit.getPhone());
         Email updatedEmail = editResidentDescriptor.getEmail().orElse(residentToEdit.getEmail());
-        Address updatedAddress = editResidentDescriptor.getAddress().orElse(residentToEdit.getAddress());
+        UnitNumber updatedUnitNumber = editResidentDescriptor.getAddress().orElse(residentToEdit.getUnitNumber());
         Set<Tag> updatedTags = editResidentDescriptor.getTags().orElse(residentToEdit.getTags());
 
-        return new Resident(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Resident(updatedName, updatedPhone, updatedEmail, updatedUnitNumber, updatedTags);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
+        private UnitNumber unitNumber;
         private Set<Tag> tags;
 
         public EditResidentDescriptor() {}
@@ -149,7 +149,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setAddress(toCopy.unitNumber);
             setTags(toCopy.tags);
         }
 
@@ -157,7 +157,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, unitNumber, tags);
         }
 
         public void setName(Name name) {
@@ -184,12 +184,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setAddress(UnitNumber unitNumber) {
+            this.unitNumber = unitNumber;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<UnitNumber> getAddress() {
+            return Optional.ofNullable(unitNumber);
         }
 
         /**
@@ -224,7 +224,7 @@ public class EditCommand extends Command {
             return Objects.equals(name, otherEditResidentDescriptor.name)
                     && Objects.equals(phone, otherEditResidentDescriptor.phone)
                     && Objects.equals(email, otherEditResidentDescriptor.email)
-                    && Objects.equals(address, otherEditResidentDescriptor.address)
+                    && Objects.equals(unitNumber, otherEditResidentDescriptor.unitNumber)
                     && Objects.equals(tags, otherEditResidentDescriptor.tags);
         }
 
@@ -234,7 +234,7 @@ public class EditCommand extends Command {
                     .add("name", name)
                     .add("phone", phone)
                     .add("email", email)
-                    .add("address", address)
+                    .add("unitNumber", unitNumber)
                     .add("tags", tags)
                     .toString();
         }

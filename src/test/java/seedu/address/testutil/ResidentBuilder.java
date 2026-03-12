@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.resident.Address;
+import seedu.address.model.resident.UnitNumber;
 import seedu.address.model.resident.Email;
 import seedu.address.model.resident.Name;
 import seedu.address.model.resident.Phone;
@@ -24,7 +24,7 @@ public class ResidentBuilder {
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
+    private UnitNumber unitNumber;
     private Set<Tag> tags;
 
     /**
@@ -34,7 +34,7 @@ public class ResidentBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        unitNumber = new UnitNumber(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 
@@ -45,7 +45,7 @@ public class ResidentBuilder {
         name = residentToCopy.getName();
         phone = residentToCopy.getPhone();
         email = residentToCopy.getEmail();
-        address = residentToCopy.getAddress();
+        unitNumber = residentToCopy.getUnitNumber();
         tags = new HashSet<>(residentToCopy.getTags());
     }
 
@@ -66,10 +66,10 @@ public class ResidentBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code UnitNumber} of the {@code Person} that we are building.
      */
     public ResidentBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.unitNumber = new UnitNumber(address);
         return this;
     }
 
@@ -90,7 +90,7 @@ public class ResidentBuilder {
     }
 
     public Resident build() {
-        return new Resident(name, phone, email, address, tags);
+        return new Resident(name, phone, email, unitNumber, tags);
     }
 
 }

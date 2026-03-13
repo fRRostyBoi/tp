@@ -45,7 +45,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editResidentDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_UNITNUMBER).isPresent()) {
-            editResidentDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_UNITNUMBER).get()));
+            editResidentDescriptor.setUnitNumber(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_UNITNUMBER)
+                    .get()));
         }
 
         if (!editResidentDescriptor.isAnyFieldEdited()) {

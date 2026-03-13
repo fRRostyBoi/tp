@@ -29,7 +29,7 @@ public class EditResidentDescriptorBuilder {
         descriptor = new EditResidentDescriptor();
         descriptor.setName(resident.getName());
         descriptor.setPhone(resident.getPhone());
-        descriptor.setAddress(resident.getUnitNumber());
+        descriptor.setUnitNumber(resident.getUnitNumber());
     }
 
     /**
@@ -52,7 +52,7 @@ public class EditResidentDescriptorBuilder {
      * Sets the {@code UnitNumber} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditResidentDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new UnitNumber(address));
+        descriptor.setUnitNumber(new UnitNumber(address));
         return this;
     }
 

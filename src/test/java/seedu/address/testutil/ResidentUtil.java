@@ -38,7 +38,8 @@ public class ResidentUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_UNITNUMBER).append(address.value).append(" "));
+        descriptor.getUnitNumber().ifPresent(address -> sb.append(PREFIX_UNITNUMBER).append(address.value)
+                .append(" "));
         return sb.toString();
     }
 }

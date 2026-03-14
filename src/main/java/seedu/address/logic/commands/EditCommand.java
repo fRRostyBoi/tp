@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_UNITNUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_UNIT_NUMBER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESIDENTS;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_UNITNUMBER + "ADDRESS] \n"
+            + "[" + PREFIX_UNIT_NUMBER + "ADDRESS] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567";
 

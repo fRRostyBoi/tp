@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_UNITNUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_UNIT_NUMBER;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -22,11 +22,11 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
-            + PREFIX_UNITNUMBER + "UNIT_NUMBER \n"
+            + PREFIX_UNIT_NUMBER + "UNIT_NUMBER \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
-            + PREFIX_UNITNUMBER + "26/1/Q ";
+            + PREFIX_UNIT_NUMBER + "26/1/Q ";
 
     public static final String MESSAGE_SUCCESS = "New resident added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This resident already exists in the address book";

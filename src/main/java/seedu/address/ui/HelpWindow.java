@@ -15,7 +15,7 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String COMMAND_LIST_MESSAGE = """
 Available commands:
 
-add: Adds a resident to the unitNumber book.
+add: Adds a resident to the address book.
 Format: add n/NAME p/PHONE_NUMBER u/UNIT_NO [t/TAG]...
 Example: add n/John Doe p/98765432 u/02-25 t/friends
 
@@ -34,7 +34,7 @@ delete: Deletes a resident by index.
 Format: delete INDEX
 Example: delete 2
 
-clear: Deletes all residents from the unitNumber book.
+clear: Deletes all residents from the address book.
 Format: clear
 
 help: Shows this command list.

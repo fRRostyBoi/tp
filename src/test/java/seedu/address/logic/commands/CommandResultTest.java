@@ -33,6 +33,14 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+
+        // different copyContent value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, "copy content")));
+
+        // same copyContent value -> returns true
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, null)));
+        assertTrue(new CommandResult("feedback", false, false, "content")
+                .equals(new CommandResult("feedback", false, false, "content")));
     }
 
     @Test
@@ -50,6 +58,15 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+
+        // different copyContent value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(),
+                new CommandResult("feedback", false, false, "copy").hashCode());
+
+        // same copyContent value -> returns same hashcode
+        assertEquals(
+                new CommandResult("feedback", false, false, "copy").hashCode(),
+                new CommandResult("feedback", false, false, "copy").hashCode());
     }
 
     @Test
@@ -59,5 +76,24 @@ public class CommandResultTest {
                 + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
                 + ", exit=" + commandResult.isExit() + ", copyContent=" + commandResult.getCopyContent() + "}";
         assertEquals(expected, commandResult.toString());
+    }
+
+    @Test
+    public void isCopy() {
+        CommandResult commandResultWithoutCopy = new CommandResult("feedback");
+        assertFalse(commandResultWithoutCopy.isCopy());
+
+        CommandResult commandResultWithCopy = new CommandResult("feedback", false, false, "copy content");
+        assertTrue(commandResultWithCopy.isCopy());
+    }
+
+    @Test
+    public void getCopyContent() {
+        CommandResult commandResultWithoutCopy = new CommandResult("feedback");
+        assertEquals(null, commandResultWithoutCopy.getCopyContent());
+
+        String copyContent = "copy content";
+        CommandResult commandResultWithCopy = new CommandResult("feedback", false, false, copyContent);
+        assertEquals(copyContent, commandResultWithCopy.getCopyContent());
     }
 }

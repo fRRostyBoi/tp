@@ -63,6 +63,36 @@ public class ResidentMatchesFindPredicateTest {
     }
 
     @Test
+    public void equals_differentNameKeywords_returnsFalse() {
+        ResidentMatchesFindPredicate firstPredicate =
+                new ResidentMatchesFindPredicate(List.of("alex"), List.of("9876"), List.of("02-25"));
+        ResidentMatchesFindPredicate differentNamePredicate =
+                new ResidentMatchesFindPredicate(List.of("bob"), List.of("9876"), List.of("02-25"));
+
+        assertFalse(firstPredicate.equals(differentNamePredicate));
+    }
+
+    @Test
+    public void equals_differentPhoneKeywords_returnsFalse() {
+        ResidentMatchesFindPredicate firstPredicate =
+                new ResidentMatchesFindPredicate(List.of("alex"), List.of("9876"), List.of("02-25"));
+        ResidentMatchesFindPredicate differentPhonePredicate =
+                new ResidentMatchesFindPredicate(List.of("alex"), List.of("1111"), List.of("02-25"));
+
+        assertFalse(firstPredicate.equals(differentPhonePredicate));
+    }
+
+    @Test
+    public void equals_differentUnitKeywords_returnsFalse() {
+        ResidentMatchesFindPredicate firstPredicate =
+                new ResidentMatchesFindPredicate(List.of("alex"), List.of("9876"), List.of("02-25"));
+        ResidentMatchesFindPredicate differentUnitPredicate =
+                new ResidentMatchesFindPredicate(List.of("alex"), List.of("9876"), List.of("03-30"));
+
+        assertFalse(firstPredicate.equals(differentUnitPredicate));
+    }
+
+    @Test
     public void toStringMethod() {
         ResidentMatchesFindPredicate predicate =
                 new ResidentMatchesFindPredicate(List.of("alex"), List.of("9876"), List.of("02-25"));

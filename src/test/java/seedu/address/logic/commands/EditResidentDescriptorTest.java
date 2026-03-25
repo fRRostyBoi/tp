@@ -45,7 +45,7 @@ public class EditResidentDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditResidentDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
+        editedAmy = new EditResidentDescriptorBuilder(DESC_AMY).withUnitNumber(VALID_ADDRESS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 

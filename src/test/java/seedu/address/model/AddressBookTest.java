@@ -44,7 +44,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicateResidents_throwsDuplicateResidentException() {
-        // Two persons with the same identity fields
+        // Two residents with the same identity fields
         Resident editedAlice = new ResidentBuilder(ALICE).withUnitNumber(VALID_ADDRESS_BOB).build();
         List<Resident> newResidents = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newResidents);

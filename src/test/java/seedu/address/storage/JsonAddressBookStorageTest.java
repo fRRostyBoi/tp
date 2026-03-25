@@ -52,12 +52,12 @@ public class JsonAddressBookStorageTest {
 
     @Test
     public void readAddressBook_invalidResidentAddressBook_throwDataLoadingException() {
-        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
+        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidResidentAddressBook.json"));
     }
 
     @Test
     public void readAddressBook_invalidAndValidResidentAddressBook_throwDataLoadingException() {
-        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidAndValidResidentAddressBook.json"));
     }
 
     @Test

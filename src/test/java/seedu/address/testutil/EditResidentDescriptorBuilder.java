@@ -51,8 +51,8 @@ public class EditResidentDescriptorBuilder {
     /**
      * Sets the {@code UnitNumber} of the {@code EditResidentDescriptor} that we are building.
      */
-    public EditResidentDescriptorBuilder withAddress(String address) {
-        descriptor.setUnitNumber(new UnitNumber(address));
+    public EditResidentDescriptorBuilder withUnitNumber(String unitNumber) {
+        descriptor.setUnitNumber(new UnitNumber(unitNumber));
         return this;
     }
 

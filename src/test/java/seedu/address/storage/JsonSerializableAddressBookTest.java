@@ -16,11 +16,11 @@ import seedu.address.testutil.TypicalResidents;
 public class JsonSerializableAddressBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
-    private static final Path TYPICAL_RESIDENTS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
+    private static final Path TYPICAL_RESIDENTS_FILE = TEST_DATA_FOLDER.resolve("typicalResidentsAddressBook.json");
     private static final Path LEGACY_PERSONS_FILE = TEST_DATA_FOLDER.resolve("legacyPersonsAddressBook.json");
     private static final Path LEGACY_ADDRESS_FILE = TEST_DATA_FOLDER.resolve("legacyAddressFieldAddressBook.json");
-    private static final Path INVALID_RESIDENT_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.json");
-    private static final Path DUPLICATE_RESIDENT_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.json");
+    private static final Path INVALID_RESIDENT_FILE = TEST_DATA_FOLDER.resolve("invalidResidentAddressBook.json");
+    private static final Path DUPLICATE_RESIDENT_FILE = TEST_DATA_FOLDER.resolve("duplicateResidentAddressBook.json");
 
     @Test
     public void toModelType_typicalResidentsFile_success() throws Exception {

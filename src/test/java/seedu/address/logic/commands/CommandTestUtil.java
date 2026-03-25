@@ -51,9 +51,9 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditResidentDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withAddress(VALID_ADDRESS_AMY).build();
+                .withPhone(VALID_PHONE_AMY).withUnitNumber(VALID_ADDRESS_AMY).build();
         DESC_BOB = new EditResidentDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).build();
+                .withPhone(VALID_PHONE_BOB).withUnitNumber(VALID_ADDRESS_BOB).build();
     }
 
     /**

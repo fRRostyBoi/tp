@@ -86,7 +86,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + ADDRESS_DESC_AMY + NAME_DESC_AMY;
 
         EditCommand.EditResidentDescriptor descriptor = new EditResidentDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_AMY).build();
+                .withPhone(VALID_PHONE_BOB).withUnitNumber(VALID_ADDRESS_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -121,7 +121,7 @@ public class EditCommandParserTest {
 
         // address
         userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditResidentDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
+        descriptor = new EditResidentDescriptorBuilder().withUnitNumber(VALID_ADDRESS_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

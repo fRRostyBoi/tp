@@ -82,7 +82,7 @@ public class AddressBookTest {
 
     @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
+        String expected = AddressBook.class.getCanonicalName() + "{residents=" + addressBook.getPersonList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 

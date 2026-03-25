@@ -22,7 +22,7 @@ public class TypicalResidents {
     public static final Resident ALICE = new ResidentBuilder().withName("Alice Pauline")
             .withUnitNumber("123, Jurong West Ave 6, #08-111").withPhone("94351253").build();
     public static final Resident BENSON = new ResidentBuilder().withName("Benson Meier")
-            .withUnitNumber("311, Clementi Ave 2, #02-25").withPhone("98765432").build();
+            .withUnitNumber("311, Clementi Ave 2, #02-25").withPhone("98765432").withRole("HA").build();
     public static final Resident CARL = new ResidentBuilder().withName("Carl Kurz").withPhone("95352563")
             .withUnitNumber("wall street").build();
     public static final Resident DANIEL = new ResidentBuilder().withName("Daniel Meier").withPhone("87652533")

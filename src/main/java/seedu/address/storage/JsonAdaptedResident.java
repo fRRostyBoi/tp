@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.resident.Name;
 import seedu.address.model.resident.Phone;
 import seedu.address.model.resident.Resident;
+import seedu.address.model.resident.Role;
 import seedu.address.model.resident.UnitNumber;
 
 /**
@@ -19,16 +20,18 @@ class JsonAdaptedResident {
     private final String name;
     private final String phone;
     private final String unitNumber;
+    private final String role;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedResident(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                               @JsonProperty("unitNumber") String unitNumber) {
+                               @JsonProperty("unitNumber") String unitNumber, @JsonProperty("role") String role) {
         this.name = name;
         this.phone = phone;
         this.unitNumber = unitNumber;
+        this.role = role;
     }
 
     /**
@@ -38,6 +41,7 @@ class JsonAdaptedResident {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         unitNumber = source.getUnitNumber().value;
+        role = source.getRole().role;
     }
 
     /**
@@ -73,7 +77,17 @@ class JsonAdaptedResident {
         }
         final UnitNumber modelUnitNumber = new UnitNumber(unitNumber);
 
-        return new Resident(modelName, modelPhone, modelUnitNumber);
+
+        if (role == null) {
+            // For OLDER data (without role field)
+            return new Resident(modelName, modelPhone, modelUnitNumber);
+        }
+
+        if (!Role.isValidRole(role)) {
+            throw new IllegalValueException(Role.MESSAGE_CONSTRAINTS);
+        }
+        final Role modelRole = Role.valueOf(role);
+        return new Resident(modelName, modelPhone, modelUnitNumber, modelRole);
     }
 
 }

@@ -15,7 +15,7 @@ import seedu.address.model.resident.UniqueResidentList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueResidentList persons;
+    private final UniqueResidentList residents;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,7 +25,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniqueResidentList();
+        residents = new UniqueResidentList();
     }
 
     public AddressBook() {}
@@ -44,8 +44,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Resident> residents) {
-        this.persons.setPersons(residents);
+    public void setResidents(List<Resident> residents) {
+        this.residents.setPersons(residents);
     }
 
     /**
@@ -54,7 +54,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setResidents(newData.getPersonList());
     }
 
     //// person-level operations
@@ -64,7 +64,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPerson(Resident resident) {
         requireNonNull(resident);
-        return persons.contains(resident);
+        return residents.contains(resident);
     }
 
     /**
@@ -72,7 +72,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the address book.
      */
     public void addPerson(Resident p) {
-        persons.add(p);
+        residents.add(p);
     }
 
     /**
@@ -83,7 +83,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Resident target, Resident editedResident) {
         requireNonNull(editedResident);
 
-        persons.setPerson(target, editedResident);
+        residents.setPerson(target, editedResident);
     }
 
     /**
@@ -91,7 +91,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeResident(Resident key) {
-        persons.remove(key);
+        residents.remove(key);
     }
 
     //// util methods
@@ -99,13 +99,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("persons", persons)
+                .add("residents", residents)
                 .toString();
     }
 
     @Override
     public ObservableList<Resident> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return residents.asUnmodifiableObservableList();
     }
 
     @Override
@@ -120,11 +120,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return residents.equals(otherAddressBook.residents);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return residents.hashCode();
     }
 }

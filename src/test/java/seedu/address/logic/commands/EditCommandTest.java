@@ -107,7 +107,7 @@ public class EditCommandTest {
         EditResidentDescriptor descriptor = new EditResidentDescriptorBuilder(firstResident).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_RESIDENT);
     }
 
     @Test
@@ -119,7 +119,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditResidentDescriptorBuilder(residentInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_RESIDENT);
     }
 
     @Test

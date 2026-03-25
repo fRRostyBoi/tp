@@ -28,8 +28,8 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the resident identified "
+            + "by the index number used in the displayed resident list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -38,9 +38,9 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Resident: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_RESIDENT = "This resident already exists in the address book.";
 
     private final Index index;
     private final EditResidentDescriptor editResidentDescriptor;
@@ -70,7 +70,7 @@ public class EditCommand extends Command {
         Resident editedResident = createEditedPerson(residentToEdit, editResidentDescriptor);
 
         if (!residentToEdit.isSameResident(editedResident) && model.hasResident(editedResident)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_RESIDENT);
         }
 
         model.setResident(residentToEdit, editedResident);

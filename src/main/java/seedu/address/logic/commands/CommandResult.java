@@ -19,13 +19,24 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Content to copy to clipboard. */
+    private final String copyContent;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, showHelp, exit, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields including copy content.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String copyContent) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.copyContent = copyContent;
     }
 
     /**
@@ -33,7 +44,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, null);
     }
 
     public String getFeedbackToUser() {
@@ -46,6 +57,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public String getCopyContent() {
+        return copyContent;
+    }
+
+    public boolean isCopy() {
+        return copyContent != null;
     }
 
     @Override
@@ -62,12 +81,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && Objects.equals(copyContent, otherCommandResult.copyContent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, copyContent);
     }
 
     @Override
@@ -76,6 +96,7 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("copyContent", copyContent)
                 .toString();
     }
 

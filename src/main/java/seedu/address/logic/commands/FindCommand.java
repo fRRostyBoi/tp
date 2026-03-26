@@ -1,28 +1,38 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_UNIT_NUMBER;
+
+import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.resident.NameContainsKeywordsPredicate;
+import seedu.address.model.resident.Resident;
 
 /**
- * Finds and lists all residents in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all residents in the address book that match the configured find predicate.
+ *
+ * <p>This command supports both name-only searches and fielded searches.</p>
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all residents whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds residents using either name keywords or "
+            + "fielded search criteria and displays them as a list with index numbers.\n"
+            + "Parameters: KEYWORD [MORE_KEYWORDS]... or "
+            + "[" + PREFIX_NAME + "NAME_KEYWORDS]... "
+            + "[" + PREFIX_PHONE + "PHONE_FRAGMENT]... "
+            + "[" + PREFIX_UNIT_NUMBER + "UNIT_FRAGMENT]...\n"
+            + "Examples: " + COMMAND_WORD + " alex david\n"
+            + "          " + COMMAND_WORD + " n/alex n/david p/9876 u/02-25";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final Predicate<Resident> predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(Predicate<Resident> predicate) {
         this.predicate = predicate;
     }
 

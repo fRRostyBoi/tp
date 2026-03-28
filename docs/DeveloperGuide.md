@@ -435,6 +435,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1. User requests to navigate to an earlier input.
 2. System displays the earlier input.
+
     Steps 1 and 2 are repeated as long as the user continues to request to navigate to an earlier input.
 
    Use case ends.
@@ -459,6 +460,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1. User requests to navigate to a later input.
 2. System displays the later input.
+
    Steps 1 and 2 are repeated as long as the user continues to request to navigate to a later input.
 
    Use case ends.

@@ -61,18 +61,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code UnitNumber}.
+     * Parses a {@code String unitNumber} into an {@code UnitNumber}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code unitNumber} is invalid.
      */
-    public static UnitNumber parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!UnitNumber.isValidUnitNumber(trimmedAddress)) {
+    public static UnitNumber parseUnitNumber(String unitNumber) throws ParseException {
+        requireNonNull(unitNumber);
+        String trimmedUnitNumber = unitNumber.trim();
+        if (!UnitNumber.isValidUnitNumber(trimmedUnitNumber)) {
             throw new ParseException(UnitNumber.MESSAGE_CONSTRAINTS);
         }
-        return new UnitNumber(trimmedAddress);
+        return new UnitNumber(trimmedUnitNumber);
     }
 
     /**

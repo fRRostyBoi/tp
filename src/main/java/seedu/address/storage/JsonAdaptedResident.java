@@ -23,19 +23,29 @@ class JsonAdaptedResident {
     private final String role;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedResident} with the given resident details.
      */
     @JsonCreator
     public JsonAdaptedResident(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                               @JsonProperty("unitNumber") String unitNumber, @JsonProperty("role") String role) {
+                               @JsonProperty("unitNumber") String unitNumber,
+                               @JsonProperty("address") String legacyUnitNumber,
+                               @JsonProperty("role") String role) {
         this.name = name;
         this.phone = phone;
-        this.unitNumber = unitNumber;
+        this.unitNumber = unitNumber != null ? unitNumber : legacyUnitNumber;
         this.role = role;
     }
 
+    public JsonAdaptedResident(String name, String phone, String unitNumber) {
+        this(name, phone, unitNumber, null, null);
+    }
+
+    public JsonAdaptedResident(String name, String phone, String unitNumber, String role) {
+        this(name, phone, unitNumber, null, role);
+    }
+
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Resident} into this class for Jackson use.
      */
     public JsonAdaptedResident(Resident source) {
         name = source.getName().fullName;
@@ -46,9 +56,9 @@ class JsonAdaptedResident {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted resident object into the model's {@code Resident} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted resident.
      */
     public Resident toModelType() throws IllegalValueException {
 

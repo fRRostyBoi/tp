@@ -7,7 +7,7 @@ import seedu.address.model.resident.Role;
 import seedu.address.model.resident.UnitNumber;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Resident objects.
  */
 public class ResidentBuilder {
 

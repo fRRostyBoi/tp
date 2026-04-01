@@ -24,33 +24,33 @@ import seedu.address.model.resident.Role;
 import seedu.address.model.resident.UnitNumber;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing resident in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the resident identified "
+            + "by the index number used in the displayed resident list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_UNIT_NUMBER + "ADDRESS] "
+            + "[" + PREFIX_UNIT_NUMBER + "UNIT_NUMBER] "
             + "[" + PREFIX_ROLE + "ROLE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_RESIDENT_SUCCESS = "Edited Resident: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_RESIDENT = "This resident already exists in the address book.";
 
     private final Index index;
     private final EditResidentDescriptor editResidentDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editResidentDescriptor details to edit the person with
+     * @param index of the resident in the filtered resident list to edit
+     * @param editResidentDescriptor details to edit the resident with
      */
     public EditCommand(Index index, EditResidentDescriptor editResidentDescriptor) {
         requireNonNull(index);
@@ -70,22 +70,23 @@ public class EditCommand extends Command {
         }
 
         Resident residentToEdit = lastShownList.get(index.getZeroBased());
-        Resident editedResident = createEditedPerson(residentToEdit, editResidentDescriptor);
+        Resident editedResident = createEditedResident(residentToEdit, editResidentDescriptor);
 
         if (!residentToEdit.isSameResident(editedResident) && model.hasResident(editedResident)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_RESIDENT);
         }
 
         model.setResident(residentToEdit, editedResident);
         model.updateFilteredResidentsList(PREDICATE_SHOW_ALL_RESIDENTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedResident)));
+        return new CommandResult(String.format(MESSAGE_EDIT_RESIDENT_SUCCESS, Messages.format(editedResident)));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Resident} with the details of {@code residentToEdit}
+     * edited with {@code editResidentDescriptor}.
      */
-    private static Resident createEditedPerson(Resident residentToEdit, EditResidentDescriptor editResidentDescriptor) {
+    private static Resident createEditedResident(Resident residentToEdit,
+                                                 EditResidentDescriptor editResidentDescriptor) {
         assert residentToEdit != null;
 
         Name updatedName = editResidentDescriptor.getName().orElse(residentToEdit.getName());
@@ -116,13 +117,13 @@ public class EditCommand extends Command {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("editPersonDescriptor", editResidentDescriptor)
+                .add("editResidentDescriptor", editResidentDescriptor)
                 .toString();
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the resident with. Each non-empty field value will replace the
+     * corresponding field value of the resident.
      */
     public static class EditResidentDescriptor {
         private Name name;

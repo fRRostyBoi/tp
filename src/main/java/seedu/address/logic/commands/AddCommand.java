@@ -37,7 +37,7 @@ public class AddCommand extends Command {
     private final Resident toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Resident}
      */
     public AddCommand(Resident resident) {
         requireNonNull(resident);

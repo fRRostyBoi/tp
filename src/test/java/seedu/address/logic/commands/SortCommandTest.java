@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.SortCommand.SortField.NAME;
 import static seedu.address.logic.commands.SortCommand.SortField.PHONE;
 import static seedu.address.logic.commands.SortCommand.SortField.UNIT_NO;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -108,6 +109,33 @@ public class SortCommandTest {
     }
 
     @Test
+    public void execute_sortByPhone_numericTie_breaksTieWithOriginalPhoneValue() throws CommandException {
+        Resident zeroPaddedPhoneResident = new ResidentBuilder().withName("Zero Padded")
+                .withPhone("00123").withUnitNumber("Gamma Block").build();
+        Resident plainPhoneResident = new ResidentBuilder().withName("Plain")
+                .withPhone("123").withUnitNumber("Alpha Block").build();
+        Resident largerPhoneResident = new ResidentBuilder().withName("Larger")
+                .withPhone("124").withUnitNumber("Beta Block").build();
+
+        AddressBook addressBook = new AddressBookBuilder()
+                .withResident(plainPhoneResident)
+                .withResident(largerPhoneResident)
+                .withResident(zeroPaddedPhoneResident)
+                .build();
+        model = new ModelManager(addressBook, new UserPrefs());
+
+        SortCommand sortCommand = new SortCommand(PHONE);
+
+        CommandResult commandResult = sortCommand.execute(model);
+
+        assertEquals(SortCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertResidentOrder(model.getFilteredResidentList(),
+                zeroPaddedPhoneResident,
+                plainPhoneResident,
+                largerPhoneResident);
+    }
+
+    @Test
     public void execute_sortByBlock_showsResidentsInBlockOrder() throws CommandException {
         SortCommand sortCommand = new SortCommand(UNIT_NO);
 
@@ -142,6 +170,36 @@ public class SortCommandTest {
     }
 
     @Test
+    public void compareNaturally_sameDigitRun_continuesWithFollowingCharacters() {
+        assertTrue(invokeCompareNaturally("Block 2B", "Block 2A") > 0);
+    }
+
+    @Test
+    public void compareNaturally_prefixBeforeSuffix_returnsNegativeValue() {
+        assertTrue(invokeCompareNaturally("Block 2", "Block 2A") < 0);
+    }
+
+    @Test
+    public void compareNaturally_suffixAfterPrefix_returnsPositiveValue() {
+        assertTrue(invokeCompareNaturally("Block 2A", "Block 2") > 0);
+    }
+
+    @Test
+    public void compareNaturally_equalIgnoringCase_returnsZero() {
+        assertEquals(0, invokeCompareNaturally("Block 2A", "block 2a"));
+    }
+
+    @Test
+    public void compareNaturally_digitRunWithLeadingZeros_ordersLongerRunAfterShorterRun() {
+        assertTrue(invokeCompareNaturally("Block 002", "Block 2") > 0);
+    }
+
+    @Test
+    public void compareNaturally_digitAndLetterAtSamePosition_comparesAsCharacters() {
+        assertTrue(invokeCompareNaturally("Block 2", "Block A") < 0);
+    }
+
+    @Test
     public void execute_emptyList_returnsEmptyMessage() throws CommandException {
         model = new ModelManager(new AddressBook(), new UserPrefs());
         SortCommand sortCommand = new SortCommand(NAME);
@@ -171,5 +229,15 @@ public class SortCommandTest {
         SortCommand sortCommand = new SortCommand(NAME);
         String expected = SortCommand.class.getCanonicalName() + "{sortField=" + NAME + "}";
         assertEquals(expected, sortCommand.toString());
+    }
+
+    private int invokeCompareNaturally(String left, String right) {
+        try {
+            Method compareNaturally = SortCommand.class.getDeclaredMethod("compareNaturally", String.class, String.class);
+            compareNaturally.setAccessible(true);
+            return (int) compareNaturally.invoke(null, left, right);
+        } catch (ReflectiveOperationException e) {
+            throw new AssertionError("Failed to invoke SortCommand.compareNaturally", e);
+        }
     }
 }

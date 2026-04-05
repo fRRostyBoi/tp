@@ -15,14 +15,12 @@ import seedu.address.model.resident.Resident;
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
-
-    public static final String MESSAGE_SUCCESS = "Sorted all residents";
-    public static final String MESSAGE_EMPTY = "No residents found; to add, use the ‘add’ command";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts the displayed list of residents by the specified "
             + "field.\n"
             + "Parameters: FIELD (must be one of: name, phone, unit, role)\n"
             + "Example: " + COMMAND_WORD + " name";
+    public static final String MESSAGE_EMPTY = "No residents found; to add, use the ‘add’ command";
     private final SortField sortField;
     /**
      * Creates a SortCommand to sort residents by the specified field.
@@ -40,7 +38,7 @@ public class SortCommand extends Command {
         }
 
         model.updateSortedResidentsList(getComparator());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(getMessageSuccess());
     }
 
     private Comparator<Resident> getComparator() {
@@ -138,6 +136,14 @@ public class SortCommand extends Command {
         }
         return digits.substring(index);
     }
+    /**
+     * Returns a String indicating a successful sort
+     * Current sort order for all fields is already in ascending order,
+     * thus we can just state it as such in the string.
+     */
+    private String getMessageSuccess() {
+        return String.format("Sorted residents by %s in ascending order.", sortField.getDisplayName());
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -164,9 +170,19 @@ public class SortCommand extends Command {
      * Represents the fields that the resident list can be sorted by.
      */
     public enum SortField {
-        NAME,
-        PHONE,
-        UNIT_NO,
-        ROLE
+        NAME("name"),
+        PHONE("phone"),
+        UNIT_NO("unit number"),
+        ROLE("role");
+
+        private final String displayName;
+
+        SortField(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
     }
 }

@@ -68,7 +68,7 @@ public class SortCommandTest {
 
         CommandResult commandResult = sortCommand.execute(model);
 
-        assertEquals(SortCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(getExpectedSuccessMessage(NAME), commandResult.getFeedbackToUser());
         assertResidentOrder(model.getFilteredResidentList(), amy, mike, zed);
     }
 
@@ -78,7 +78,7 @@ public class SortCommandTest {
 
         CommandResult commandResult = sortCommand.execute(model);
 
-        assertEquals(SortCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(getExpectedSuccessMessage(PHONE), commandResult.getFeedbackToUser());
         assertResidentOrder(model.getFilteredResidentList(), amy, mike, zed);
     }
 
@@ -102,7 +102,7 @@ public class SortCommandTest {
 
         CommandResult commandResult = sortCommand.execute(model);
 
-        assertEquals(SortCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(getExpectedSuccessMessage(PHONE), commandResult.getFeedbackToUser());
         assertResidentOrder(model.getFilteredResidentList(),
                 smallPhoneResident,
                 mediumPhoneResident,
@@ -129,7 +129,7 @@ public class SortCommandTest {
 
         CommandResult commandResult = sortCommand.execute(model);
 
-        assertEquals(SortCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(getExpectedSuccessMessage(PHONE), commandResult.getFeedbackToUser());
         assertResidentOrder(model.getFilteredResidentList(),
                 zeroPaddedPhoneResident,
                 plainPhoneResident,
@@ -142,7 +142,7 @@ public class SortCommandTest {
 
         CommandResult commandResult = sortCommand.execute(model);
 
-        assertEquals(SortCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(getExpectedSuccessMessage(UNIT_NO), commandResult.getFeedbackToUser());
         assertResidentOrder(model.getFilteredResidentList(), amy, mike, zed);
     }
 
@@ -166,7 +166,7 @@ public class SortCommandTest {
 
         CommandResult commandResult = sortCommand.execute(model);
 
-        assertEquals(SortCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(getExpectedSuccessMessage(UNIT_NO), commandResult.getFeedbackToUser());
         assertResidentOrder(model.getFilteredResidentList(), unitTwoResident, unitTenResident, unitElevenResident);
     }
 
@@ -194,7 +194,7 @@ public class SortCommandTest {
 
         CommandResult commandResult = sortCommand.execute(model);
 
-        assertEquals(SortCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(getExpectedSuccessMessage(ROLE), commandResult.getFeedbackToUser());
         assertResidentOrder(model.getFilteredResidentList(),
                 houseAssistant,
                 floorHead,
@@ -222,7 +222,7 @@ public class SortCommandTest {
 
         CommandResult commandResult = sortCommand.execute(model);
 
-        assertEquals(SortCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(getExpectedSuccessMessage(ROLE), commandResult.getFeedbackToUser());
         assertResidentOrder(model.getFilteredResidentList(),
                 amyHouseAssistant,
                 zedHouseAssistant,
@@ -282,6 +282,10 @@ public class SortCommandTest {
 
     private void assertResidentOrder(List<Resident> actualResidents, Resident... expectedResidents) {
         assertEquals(Arrays.asList(expectedResidents), actualResidents);
+    }
+
+    private String getExpectedSuccessMessage(SortCommand.SortField sortField) {
+        return String.format("Sorted residents by %s in ascending order.", sortField.getDisplayName());
     }
 
     @Test

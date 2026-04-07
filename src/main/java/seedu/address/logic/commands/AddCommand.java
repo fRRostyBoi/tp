@@ -33,8 +33,9 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New resident added: %1$s";
     public static final String MESSAGE_DUPLICATE_RESIDENT = "This resident already exists in the list";
-    public static final String MESSAGE_DUPLICATE_PHONE = "This phone already exists in the list";
-    public static final String MESSAGE_DUPLICATE_UNITNUMBER = "This unit number already exists in the list";
+    public static final String MESSAGE_DUPLICATE_PHONE = "A resident with this phone number already exists in the list";
+    public static final String MESSAGE_DUPLICATE_UNITNUMBER =
+            "A resident with this unit number already exists in the list";
 
     private final Resident toAdd;
 

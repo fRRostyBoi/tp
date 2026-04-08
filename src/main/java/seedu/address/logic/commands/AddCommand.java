@@ -25,13 +25,14 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a resident to the list. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
+            + PREFIX_PHONE + "PHONE_NUMBER "
             + PREFIX_UNIT_NUMBER + "UNIT_NUMBER "
             + "[" + PREFIX_ROLE + "ROLE]\n"
+            + "Role values: HA, FH, RA, NONE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
-            + PREFIX_UNIT_NUMBER + "26/1/A "
+            + PREFIX_UNIT_NUMBER + "02-25 "
             + PREFIX_ROLE + "HA";
 
     public static final String MESSAGE_SUCCESS = "New resident added: %1$s";

@@ -38,11 +38,13 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_PHONE + "PHONE_NUMBER] "
             + "[" + PREFIX_UNIT_NUMBER + "UNIT_NUMBER] "
-            + "[" + PREFIX_ROLE + "ROLE]...\n"
+            + "[" + PREFIX_ROLE + "ROLE]\n"
+            + "Role values: HA, FH, RA, NONE\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567";
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_ROLE + "NONE";
 
     public static final String MESSAGE_EDIT_RESIDENT_SUCCESS = "Edited Resident: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -150,7 +152,7 @@ public class EditCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of each edited field is used internally.
          */
         public EditResidentDescriptor(EditResidentDescriptor toCopy) {
             setName(toCopy.name);

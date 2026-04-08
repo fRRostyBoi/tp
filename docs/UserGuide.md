@@ -154,6 +154,7 @@ Rules:
 
 Examples:
 * `find n/John` returns residents whose names contain the full word `John`
+* `find n/Alex n/David` returns residents whose names contain either the full word `Alex` OR `David`
 * `find p/9876` returns residents whose phone numbers contain `9876`
 * `find u/02-25` returns residents whose unit numbers contain `02-25`
 * `find r/HA` returns residents whose role is `HA`

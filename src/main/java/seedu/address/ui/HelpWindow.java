@@ -49,9 +49,10 @@ find: Finds residents using prefixed search criteria.
          [u/UNIT_NUMBER]...[r/ROLE]
   Note:
     Every search term must be prefixed.
-    n/ matches name words case-insensitively with up to one insertion,
-    deletion, or substitution.
+    n/ matches name words case-insensitively using partial matching.
+    It also tolerates up to one insertion, deletion, or substitution.
   Examples:
+    find n/al
     find n/karl
     find n/alex n/david p/9876 u/02-25
 

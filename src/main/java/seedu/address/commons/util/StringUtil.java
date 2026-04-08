@@ -66,6 +66,35 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code sentence} contains a word that contains {@code word} as a
+     * case-insensitive substring, or matches it within one single-character edit.
+     *
+     * <p>The comparison is done against each whitespace-delimited word in the sentence rather than
+     * against arbitrary substrings across multiple words.</p>
+     *
+     * @param sentence cannot be null
+     * @param word cannot be null, cannot be empty, must be a single word
+     */
+    public static boolean containsPartialOrFuzzyWordIgnoreCase(String sentence, String word) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+
+        String normalizedQuery = preppedWord.toLowerCase(Locale.ROOT);
+        String[] wordsInPreppedSentence = sentence.split("\\s+");
+
+        return Arrays.stream(wordsInPreppedSentence)
+                .anyMatch(sentenceWord -> {
+                    String normalizedSentenceWord = sentenceWord.toLowerCase(Locale.ROOT);
+                    return normalizedSentenceWord.contains(normalizedQuery)
+                            || isWithinOneEditIgnoreCase(normalizedSentenceWord, normalizedQuery);
+                });
+    }
+
+    /**
      * Returns true if the two words are equal ignoring case or differ by at most one insertion,
      * deletion, or substitution.
      */

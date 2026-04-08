@@ -168,6 +168,44 @@ public class StringUtilTest {
         assertFalse(StringUtil.containsFuzzyWordIgnoreCase("Meier Tan", "Mayer"));
     }
 
+    @Test
+    public void containsPartialOrFuzzyWordIgnoreCase_validInputs_correctResult() {
+        // Partial matches within a word
+        assertTrue(StringUtil.containsPartialOrFuzzyWordIgnoreCase("Alex Tan", "Al"));
+        assertTrue(StringUtil.containsPartialOrFuzzyWordIgnoreCase("Alice Pauline", "lic"));
+
+        // Exact and fuzzy matches remain valid
+        assertTrue(StringUtil.containsPartialOrFuzzyWordIgnoreCase("Alex Tan", "Alex"));
+        assertTrue(StringUtil.containsPartialOrFuzzyWordIgnoreCase("Alex Tan", "Alx"));
+
+        // Non-matching terms should still fail
+        assertFalse(StringUtil.containsPartialOrFuzzyWordIgnoreCase("Alex Tan", "zzz"));
+        assertFalse(StringUtil.containsPartialOrFuzzyWordIgnoreCase("Alex Tan", "Arix"));
+    }
+
+    @Test
+    public void containsPartialOrFuzzyWordIgnoreCase_nullWord_throwsNullPointerException() {
+        assertThrows(NullPointerException.class,
+                () -> StringUtil.containsPartialOrFuzzyWordIgnoreCase("typical sentence", null));
+    }
+
+    @Test
+    public void containsPartialOrFuzzyWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, "Word parameter cannot be empty", ()
+                -> StringUtil.containsPartialOrFuzzyWordIgnoreCase("typical sentence", "  "));
+    }
+
+    @Test
+    public void containsPartialOrFuzzyWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", ()
+                -> StringUtil.containsPartialOrFuzzyWordIgnoreCase("typical sentence", "aaa BBB"));
+    }
+
+    @Test
+    public void containsPartialOrFuzzyWordIgnoreCase_nullSentence_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> StringUtil.containsPartialOrFuzzyWordIgnoreCase(null, "abc"));
+    }
+
     //---------------- Tests for getDetails --------------------------------------
 
     /*

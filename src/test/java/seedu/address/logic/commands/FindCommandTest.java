@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalResidents.DANIEL;
 import static seedu.address.testutil.TypicalResidents.ELLE;
 import static seedu.address.testutil.TypicalResidents.FIONA;
 import static seedu.address.testutil.TypicalResidents.GEORGE;
+import static seedu.address.testutil.TypicalResidents.ALICE;
 import static seedu.address.testutil.TypicalResidents.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -120,6 +121,29 @@ public class FindCommandTest {
     public void execute_fuzzyNamePrefix_multipleResidentsFound() {
         String expectedMessage = String.format(MESSAGE_RESIDENTS_LISTED_OVERVIEW, 2);
         FindCommand command = parseFindCommand("n/Meir");
+
+        expectedModel.updateFilteredResidentsList(resident ->
+                resident.equals(BENSON) || resident.equals(DANIEL));
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BENSON, DANIEL), model.getFilteredResidentList());
+    }
+
+    @Test
+    public void execute_partialNamePrefix_singleResidentFound() {
+        String expectedMessage = String.format(MESSAGE_RESIDENTS_LISTED_OVERVIEW, 1);
+        FindCommand command = parseFindCommand("n/Al");
+
+        expectedModel.updateFilteredResidentsList(resident -> resident.equals(ALICE));
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.singletonList(ALICE), model.getFilteredResidentList());
+    }
+
+    @Test
+    public void execute_partialNamePrefix_multipleResidentsFound() {
+        String expectedMessage = String.format(MESSAGE_RESIDENTS_LISTED_OVERVIEW, 2);
+        FindCommand command = parseFindCommand("n/Mei");
 
         expectedModel.updateFilteredResidentsList(resident ->
                 resident.equals(BENSON) || resident.equals(DANIEL));

@@ -8,7 +8,7 @@ start
 
 :Retrieve earlier input;
 
-if () then ([later input does not exist])
+if () then ([earlier input does not exist])
     :No changes;
 else ([else])
     :Display earlier input;

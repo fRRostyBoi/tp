@@ -1,5 +1,10 @@
 package seedu.address.model.util;
 
+import static seedu.address.model.resident.Role.FH;
+import static seedu.address.model.resident.Role.HA;
+import static seedu.address.model.resident.Role.NONE;
+import static seedu.address.model.resident.Role.RA;
+
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,13 +24,13 @@ public class SampleDataUtil {
     public static Resident[] getSampleResidents() {
         return new Resident[] {
             new Resident(new Name("Alex Yeoh"), new Phone("87438807"),
-                new UnitNumber("30/1/A")),
+                new UnitNumber("30/1/A"), HA),
             new Resident(new Name("Bernice Yu"), new Phone("99272758"),
-                new UnitNumber("20/7/A")),
+                new UnitNumber("20/7/A"), FH),
             new Resident(new Name("Charlotte Oliveiro"), new Phone("93210283"),
-                new UnitNumber("11/6/B")),
+                new UnitNumber("11/6/B"), RA),
             new Resident(new Name("David Li"), new Phone("91031282"),
-                new UnitNumber("22/4/A")),
+                new UnitNumber("22/4/A"), NONE),
             new Resident(new Name("Irfan Ibrahim"), new Phone("92492021"),
                 new UnitNumber("7/5/A")),
             new Resident(new Name("Roy Balakrishnan"), new Phone("92624417"),

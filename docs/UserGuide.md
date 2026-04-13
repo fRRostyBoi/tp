@@ -273,7 +273,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Copy**   | `copy`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [u/UNIT_NUMBER] [r/ROLE] …​`<br> e.g.,`edit 2 n/James Lee p/89824392`
+**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [u/UNIT_NUMBER] [r/ROLE]`<br> e.g.,`edit 2 n/James Lee p/89824392`
 **Find**   | `find [n/NAME]... [p/PHONE_NUMBER]... [u/UNIT_NUMBER]... [r/ROLE]...`<br> e.g., `find n/James n/Jake`, `find n/James p/2222 u/02-25 r/HA`, `find r/NONE`
 **List**   | `list`
 **Help**   | `help`

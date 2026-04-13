@@ -13,10 +13,11 @@ public class UnitNumber {
             + "cannot contain forward slash (/) and must not exceed " + MAX_LENGTH + " characters.";
 
     /*
-     * The first character of the unit number must not be a whitespace,
+     * The first character of the unit number must not be a whitespace (done via trim()),
      * otherwise " " (a blank string) becomes a valid input.
+     * Also, no forward slash (/) is allowed - used as valid prefix
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "^[^/]+$";
 
     public final String value;
 

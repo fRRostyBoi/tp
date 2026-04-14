@@ -67,6 +67,8 @@ It allows users to quickly **view and manage residents** in a locally stored lis
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER u/UNIT_NUMBER`,
   `u/UNIT_NUMBER p/PHONE_NUMBER n/NAME` is also acceptable.
 
+* The name field `n/`'s value must start with an alphanumeric character, and may only contain alphanumeric characters, spaces, hyphens, periods and commas. It must not be blank and must not exceed 100 characters.
+
 * Roles use the `r/` prefix. Valid role values are `HA`, `FH`, `RA`, and `NONE`.<br>
   `NONE` is especially useful with `edit` when you want to remove an assigned role.
 

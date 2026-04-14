@@ -925,3 +925,31 @@ multiple residents are displayed in the resident list.
 
    1. Test case: Launch the application.<br>
       Expected: The application starts with an empty address book.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+The following are potential enhancements planned for future versions of QuickLookup:
+
+1. **Allow country codes and + sign in phone number field**
+   - The current field accepts only digits (no + signs or country codes), with length 3–20 digits.
+   - We plan to enhance the field to accept an optional + prefix followed by a country code (e.g., +65 for Singapore), while still supporting local 8-digit numbers.
+   - Validation logic and length limits will be adjusted accordingly.
+
+2. **Tweak find command grammar to singular form when returning 1 resident**
+   - The current response message always uses the plural "residents".
+   - We plan to switch to "resident" when exactly one result is found.
+
+3. **Add double confirmation to clear command**
+   - The current clear command executes without any way to undo, which is potentially dangerous.
+   - We plan to add a double-confirmation enhancement, such as a confirmation popup window or requiring the command to be run twice in a row before execution.
+
+4. **Allow duplicate unitNumber values**
+   - Currently, unitNumber enforces uniqueness because the dormitory follows a single-room style (one resident per unit).
+   - We plan to support a double-room style (and other options), which would allow multiple residents to share the same unit.
+   - This will require relaxing the uniqueness constraint on unitNumber to permit duplicate values.
+
+5. **Restrict "/" in the name field**
+   - Currently, the slash character / is not allowed in resident names because it conflicts with the prefix delimiter (e.g., n/, p/).
+   - In the future, after adjusting the prefix handling logic, we plan to allow / in name inputs.

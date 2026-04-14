@@ -13,7 +13,11 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+
+* QuickLookup is based on the [AddressBook-Level3 project](https://github.com/se-edu/addressbook-level3) created by the [SE-EDU initiative](https://se-education.org).
+* Some documentation and architecture descriptions were adapted from the AddressBook-Level3 project.
+* The bundled Montserrat font files are from the [Montserrat Font Project](https://github.com/JulietaUla/Montserrat), licensed under the SIL Open Font License 1.1.
+* Icon and image assets were created by the team, except where otherwise stated
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -73,7 +77,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ResidentListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S2-CS2103-T11-4/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S2-CS2103-T11-4/tp/blob/master/src/main/resources/view/HelpWindow.fxml)
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S2-CS2103-T11-4/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S2-CS2103-T11-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -113,7 +117,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g., during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2526S2-CS2103-T11-4/tp/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -124,8 +128,8 @@ How the parsing works:
 The `Model` component,
 
 * stores the address book data i.e., all `Resident` objects (which are contained in a `UniqueResidentList` object).
-* stores the currently 'selected' `Resident` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Resident>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores the currently 'selected' `Resident` objects (e.g., results of a search query) as a separate _filtered_ list, and maintains a _sorted_ view layered over that filtered list for commands such as `sort`. The sorted view is exposed to outsiders as an unmodifiable `ObservableList<Resident>` that can be 'observed', e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
+* stores a `UserPrefs` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPrefs` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 ### Storage component
@@ -136,118 +140,12 @@ The `Model` component,
 
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* inherits from both `AddressBookStorage` and `UserPrefsStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
 
 Classes used by multiple components are in the `seedu.address.commons` package.
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Implementation**
-
-This section describes some noteworthy details on how certain features are implemented.
-
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete 5` command to delete the 5th resident in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …​` to add a new resident. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the resident was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
-
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</box>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
-
-<box type="info" seamless>
-
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</box>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the resident being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
---------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -271,7 +169,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: Provides quick access to residents' information (e.g. Mobile Number, Next-of-Kin's contact, Unit Number) in times of emergency
+**Value proposition**: Provides quick access to residents' information (e.g. Mobile Number, Unit Number) in times of emergency
 
 
 ### User stories
@@ -289,7 +187,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | cautious user                        | backup resident data to a file on the local device                              | restore app data through the backup file as in case of emergencies                                                             |
 | `* *`    | forgetful/busy/concerned user        | set reminders linked to a specific individual                                   | get the system to remind me to check in on them (e.g. Residents that may require counselling)                                  |
 | `* *`    | frequent user                        | add categories to residents and search by categories                            | easily narrow down specific groups or individuals through categories                                                           |
-| `* *`    | frequent user                        | access the app data from the previous sessions when i used the app              | access and modify app data through various sessions of using the app.                                                          |
+| `* *`    | frequent user                        | access the app data from the previous sessions when I used the app              | access and modify app data through various sessions of using the app.                                                          |
 | `* *`    | frequent user                        | autocomplete certain commands                                                   | save time on typing things out fully                                                                                           |
 | `* *`    | frequent user                        | quickly retrieve my previous inputs                                             | quickly correct a wrong input, or modify a previous input and execute it without having to spend time retyping everything      |
 | `* *`    | new user                             | access a comprehensive guide for a specific command                             | learn how to use each specific command in-depth                                                                                |
@@ -307,7 +205,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | visual user                          | upload residents' profile pictures                                              | easily recognise residents visually by their faces rather than name, or other information                                      |
 | `* *`    | visual user                          | change the view settings (list style, with photo, without photo, etc.)          | choose which information is more important to me currently                                                                     |
 
-*{More to be added}*
+
 
 ### Use cases
 
@@ -545,14 +443,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-*{More to be added}*
-
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 residents without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  The GUI shall function correctly on screen resolutions **1920x1080 and above at 100% and 125% scaling** and remain usuable on screen resolutions **1280x720 and above at 150% scaling**, although the user experience may not be optimal. 
+4.  The GUI shall function correctly on screen resolutions **1920x1080 and above at 100% and 125% scaling** and remain usable on screen resolutions **1280x720 and above at 150% scaling**, although the user experience may not be optimal. 
 5.  All application data shall be stored locally in human-editable text files.
 6.  The system shall not use a DBMS for data storage.
 7.  The system shall primarily follow the object-oriented programming paradigm.
@@ -563,16 +459,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 12. The application shall not require users to install additional software dependencies
 13. The User Guide and Developer Guide shall be PDF-friendly and avoid interactive elements such as expandable panels or embedded videos.
 
-*{More to be added}*
-
 ### Glossary
 
 * **GUI**: A visual interface that allows users to interact with the application using graphical elements such as windows, buttons, icons, and menus instead of typing commands.
+* **CLI**: A text-based interface that allows users to interact with the application by typing commands.
 * **JAR file**: A packaged file format used to distribute Java applications. It bundles compiled Java classes and resources into a single executable file.
 * **Object-Oriented Programming**: A programming paradigm based on organizing code into objects that contain data and behavior.
 * **Resident**: A resident whose record is managed by the application.
 * **Resident Assistants (RAs)**: The primary target user of the application, responsible for resident welfare and administrative follow-up.
 * **Command**: A text instruction entered by the user to perform an action in the app.
+* **Command Word**: The first word in a command that identifies the action to execute, such as `add`, `find`, or `sort`.
+* **Prefix**: A marker placed before a command argument to identify the field being supplied, such as `n/` for name, `p/` for phone number, `u/` for unit number, and `r/` for role.
 * **Phone Number**: The mobile phone number of the resident.
 * **Unit Number**: The dormitory room assigned to the resident.
 * **Role**: The special dormitory-related position held by a resident. To maintain data consistency, every resident has a role; if no special appointment is held, the attribute defaults to None. 
@@ -586,6 +483,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Command Box**: The UI component where users type their commands.
 * **Result Display**: The UI component that shows the result of executing a command, such as success messages, error messages.
 * **Resident List Panel**: The UI component that displays the resident information.
+* **Displayed Resident List**: The current list of residents shown to the user in the resident list panel.
+* **Filtered Resident List**: The subset of residents shown after a command such as `find` applies search criteria.
+* **Sort Field**: The resident field used to order the displayed resident list, such as name, phone number, unit number, or role.
+* **Natural Ordering**: A sorting method that compares digit sequences by their numeric value instead of comparing each digit as a separate character.
+* **Clipboard**: The operating system's temporary storage area for copied text, used by the `copy` command.
+* **Data File**: The local file used to store resident data between application sessions. The current default data file is `data/addressbook.json`.
 * **Input History**: A feature that allows users to navigate through their previous command inputs.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -712,6 +615,60 @@ Prerequisites for all test cases below: Launch the application with the sample d
 
    1. Test case: `add n/Alex Yeoh p/87438807 u/99-9-Z`<br>
       Expected: No resident is added. Error details indicating that the resident already exists are shown.
+
+### Editing a resident
+
+Prerequisites for all test cases below: Launch the application with the sample data loaded. Enter `list` so that
+multiple residents are displayed in the resident list. Run each test case from the original sample data state.
+
+1. Editing a resident's details
+
+   1. Test case: `edit 1 n/Alex Tan p/95551238 u/31-2-A r/NONE`<br>
+      Expected: The first resident is edited. `Alex Tan` is displayed with phone number `95551238`, unit number
+      `31-2-A`, and no displayed role. A success message is shown.
+      <br><br>
+
+2. Editing only the role
+
+   1. Test case: `edit 2 r/RA`<br>
+      Expected: `Bernice Yu` is edited to have the `RA` role. A success message is shown.
+      <br><br>
+
+3. Editing with no fields provided
+
+   1. Test case: `edit 1`<br>
+      Expected: No resident is edited. Error details indicating that at least one field to edit must be provided
+      are shown.
+      <br><br>
+
+4. Editing a resident with an invalid index
+
+   1. Test case: `edit 0 p/95551238`<br>
+      Expected: No resident is edited. Error details for invalid command format are shown.
+      <br><br>
+
+5. Editing a resident with an out-of-range index
+
+   1. Test case: `edit 999 p/95551238`<br>
+      Expected: No resident is edited. Error details indicating that the resident index is invalid are shown.
+      <br><br>
+
+6. Editing a resident with a duplicate phone number
+
+   1. Test case: `edit 2 p/87438807`<br>
+      Expected: No resident is edited. Error details indicating a duplicate phone number are shown.
+      <br><br>
+
+7. Editing a resident with a duplicate unit number
+
+   1. Test case: `edit 2 u/30-1-A`<br>
+      Expected: No resident is edited. Error details indicating a duplicate unit number are shown.
+      <br><br>
+
+8. Editing a resident with an invalid role
+
+   1. Test case: `edit 1 r/INVALID`<br>
+      Expected: No resident is edited. Error details for invalid role are shown.
 
 ### Finding residents
 

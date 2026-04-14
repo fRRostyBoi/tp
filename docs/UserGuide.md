@@ -95,7 +95,7 @@ Adds a resident to the address book.
 Format: `add n/NAME p/PHONE_NUMBER u/UNIT_NUMBER [r/ROLE]`
 
 * `PHONE_NUMBER` and `UNIT_NUMBER` must each be unique across residents.
-* `PHONE_NUMBER` must contain only digits and be exactly 8 digits long.
+* `PHONE_NUMBER` must contain only digits and length must be between 3-20 digits.
 
 <box type="tip" seamless>
 
@@ -153,7 +153,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [u/UNIT_NUMBER] [r/ROLE]`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * The updated `PHONE_NUMBER` and `UNIT_NUMBER` must not duplicate another resident's values.
-* If `PHONE_NUMBER` is provided, it must contain only digits and be exactly 8 digits long.
+* If `PHONE_NUMBER` is provided, it must contain only digits and length must be between 3-20 digits.
 * If `ROLE` is provided, it must be one of `HA`, `FH`, `RA`, or `NONE`.
   * If `NONE` is provided, it will unassign roles from the resident.
 
